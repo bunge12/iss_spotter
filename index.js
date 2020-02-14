@@ -22,10 +22,16 @@ const { nextISSTimesForMyLocation } = require('./iss');
   console.log(data);
 }); */
 
+const timeConvert = (timestamp) => {
+  return new Date(timestamp * 1000);
+};
+
 nextISSTimesForMyLocation((error, passTimes) => {
   if (error) {
     return console.log("It didn't work!", error);
   }
-  // success, print out the deets!
-  console.log(passTimes);
+
+  for (let time of passTimes["response"]) {
+    console.log(`Next pass at ${timeConvert(time.risetime)} for ${time.duration} seconds!`);
+  }
 });
